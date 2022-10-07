@@ -4,87 +4,82 @@ import java.util.StringTokenizer;
 import java.util.regex.*;
 
 //The subset of Keywords involved in squareprog.scl
-/*enum keyWords
+enum keyWords //table of KEYWORDS for the scanner
 {
-    IMPORT, //Keyword: IMPORT : # 0
-    FORWARD, //Keyword: KE
-    DECLARATION, //Keyword
-    VARIABLES, //Keyword always singular, if not return an error
-    IDENTIFIERS, //identifier
-    DEFINE, //Keyword
-    CONSTANTS, //Keyword
-    STRUCTURES, //Keyword
-    OF, //Keyword
-    TYPE, //Keyword
-    BEGIN, //Keyword
-    RETURN, //Keyword
-    TYPE, //Keyword
-    PARAMETERS, //Keyword
-    DISPLAY, //Keyword
-    INPUT, //Keyword
-    ENDFUN, // endfun Keyword ENDFUN
-    EXIT, //exit Keyword EXIT
-    DOUBLE, // double Keyword DOUBLE
-    STRING, //Keyword STRING
-    IS, //Keyword IS
-    MULTIPLICATION_OP, // "*" Operator MULTI_OP
-    ASSIGNMENT_OP; // "=" Operator ASSIGN_OP
-    STRING_LIT
+    IMPORT(1,"input"),
+    FORWARD(2,"forward"),
+    DECLARATION(3,"declaration"),
+    VARIABLES(4,"variables"),
+    IDENTIFIERS(5,"identifiers"),
+    DEFINE(6, "define"),
+    CONSTANTS(7,"constants"),
+    STRUCTURES(8,"structures"),
+    OF(9,"of"),
+    TYPE(10,"type"),
+    BEGIN(11,"begin"),
+    RETURN(12,"return"),
+    TYPE(13,"type"),
+    PARAMETERS(14,"parameter"),
+    DISPLAY(15,"display"),
+    INPUT(16,"input"),
+    ENDFUN(17,"endfun"),
+    EXIT(18,"exit"),
+    DOUBLE(19,"double"),
+    STRING(20,"string"),
+    IS(21,"is"),
+    MULTIPLICATION_OP(22,"*"),
+    ASSIGNMENT_OP(23,"="),
+    DOUBLE_LIT(24,"^-?\\d+(\\.\\d+)?$");
+
+    private String lexemes;
+    private int KeywordNum;
+
+    private keyWords(int KeywordNum, String lexemes) {
+        this.KeywordNum = KeywordNum ;
+        this.lexemes = lexemes ;
+    }
 }
-*/
+
 
 
 public class SPCScanner {
     //inputs string
-
-    public String strInput(String stringSentance) {
-        String token = "";
-        StringTokenizer st = new StringTokenizer(stringSentance);
-        while (st.hasMoreTokens()) {
-            //make sure input is vali
-            String firstToken = st.nextToken();
+    keyWords tokenKeyWord;
+    public tokenObject strInput(String firstToken) {
             //basic regex filter to discern whether the token is numerical
             if (firstToken.matches("^-?\\d+(\\.\\d+)?$")) {
-                token = "double";
+
             }
             //basic regex filter to discern whether the token has acceptation lexica rules for a variable or keyword
             if (firstToken.matches("^[a-zA-Z_$][a-zA-Z_$0-9]*$")) {
-                token = wordAnalyzer(firstToken);
+                wordAnalyzer(firstToken);
             } else { // still working on a way to pass the comments through the lexical analyser but first and foremost I need to prevent the scanner from exploding if encountering a comment.
                 if (firstToken == "//") {
-                    while (st.hasMoreTokens()) {
-                        firstToken = firstToken + " " + st.nextToken();
-                    }
                     return firstToken;
                 }
-                if (firstToken == "/*") {
-                    while (st.nextToken() != "*/" || st.hasMoreTokens()) {
-                        st.nextToken();
-                    }
-                } else {
-                    return otherAnalyzer(firstToken);
+                else {
+                    otherAnalyzer(firstToken);
                 }
             }
-            return ""; //end of statement
+            return token;
         }
     }
-    public String wordAnalyzer(String numberString)
+    /*public void wordAnalyzer(String numberString)
     {
         if (numberString.matches("^[a-z]*$")) {
             return tokenCase(numberString);
         }
         else {
-            return "name";
+
         }
     }
 
-    public String otherAnalyzer(String singleString)
+    public void otherAnalyzer(String singleString)
     {
-        return token;
+        token.
     }
 
-    public String tokenCase(String numberString) {
-        tokenObject token = new tokenObject();
+    public void KeyWordTable(String numberString) {
         switch (numberString.toUpperCase()) {
             case "IMPORT":
                 token.setToken(numberString, 0);
@@ -141,12 +136,11 @@ public class SPCScanner {
                 token.setToken(numberString, 17);
                 break;
             default:
-                    return "identifiers";
-                    token.setToken(numberString, 18);
+                token.setToken(numberString, 18);
 
         }
     }
-}
+}*/
 
 class tokenObject
 {
