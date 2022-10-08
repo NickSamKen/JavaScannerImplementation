@@ -1,15 +1,19 @@
-//The subset of Keywords involved in squareprog.scl
+import java.awt.*;
+
+//The subset of Keywords involved in distpoints.scl
 public enum keyWords //table of KEYWORDS for the scanner
 {
-    IMPORT(1, "input"),
-    FORWARD(2, "forward"),
-    DECLARATION(3, "declaration"),
-    VARIABLES(4, "variables"),
-    IDENTIFIERS(5, ""),
-    DEFINE(6, "define"),
-    CONSTANTS(7, "constants"),
-    STRUCTURES(8, "structures"),
-    OF(9, "of"),
+
+
+    COMMA(1, ","),
+    MULTIPLICATION_OP(2, "*"),
+    ASSIGNMENT_OP(3, "="),
+    LEFT_BRACKET(4, "("),
+    RIGHT_BRACKET(5, ")"),
+    STRING_LIT(6, "\""),
+    SUBTRACTION(7, "-"),
+    ADDITION(8, "+"),
+    EXPONENT(9, "^"),
     TYPE(10, "type"),
     BEGIN(11, "begin"),
     RETURN(12, "return"),
@@ -21,10 +25,19 @@ public enum keyWords //table of KEYWORDS for the scanner
     DOUBLE(19, "double"),
     STRING(20, "string"),
     IS(21, "is"),
-    MULTIPLICATION_OP(22, "*"),
-    ASSIGNMENT_OP(23, "="),
-    DOUBLE_LIT(24, ""),
-    UNKNOWN_KEYWORD(25,""); //This is a custom keyword that will return to the parser an that the scanner encountered an unknown token
+    FORWARD(22, "forward"),
+    DECLARATION(23, "declaration"),
+    VARIABLES(24, "variables"),
+    IDENTIFIERS(25, ""),
+    DEFINE(26, "define"),
+    DOUBLE_LIT(27, ""),
+    SET(28, "set"),
+    IMPORT(29, "import"),
+    CONSTANTS(30, "constants"),
+    STRUCTURES(31, "structures"),
+    OF(32, "of"),
+    SCL(33,"scl.h"),
+    UNKNOWN_KEYWORD(34,""); //This is a custom keyword that will return to the parser an that the scanner encountered an unknown token
 
     private String lexemes;
     private int KeywordNum;
@@ -51,3 +64,4 @@ public enum keyWords //table of KEYWORDS for the scanner
         this.lexemes = lexemes;
     }
 }
+
