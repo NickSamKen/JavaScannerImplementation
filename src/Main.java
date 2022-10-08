@@ -1,15 +1,18 @@
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.regex.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Object> object = new List<Object>();
-        StringTokenizer st = new StringTokenizer(stringSentance);
+        SPCScanner scanner = new SPCScanner();
+        List<keyWords> object = new ArrayList<keyWords>();
+        String source = "";
+        StringTokenizer st = new StringTokenizer(source);
         while (st.hasMoreTokens()) {
-            //make sure input is valid
-            String Lexemes = st.nextToken();
-            object.add(SPCScanner(Lexemes));
+
+            object.add(scanner.strInput(st.nextToken()));
         }
+
     }
 }

@@ -1,5 +1,4 @@
 public class SPCScanner {
-    //inputs string
     keyWords[] tokenKeyWord = keyWords.values();
     public keyWords strInput(String firstToken)
     {
@@ -15,7 +14,8 @@ public class SPCScanner {
             {
                 for (keyWords keyword : tokenKeyWord )
                 {
-                    if(keyword.getLexemes() == firstToken)
+
+                    if(/*keyword.getLexemes() == firstToken*/ keyword.getLexemes().equals(firstToken))
                     {
                         return keyword;
                     }
@@ -24,11 +24,11 @@ public class SPCScanner {
                 return keyWords.IDENTIFIERS;
             }
         }
-        if(firstToken == "*")
+        if(/*firstToken == "*"*/firstToken.equals("*"))
         {
             return keyWords.MULTIPLICATION_OP;
         }
-        if(firstToken == "=")
+        if(/*firstToken == "="*/firstToken.equals("="))
         {
             return keyWords.ASSIGNMENT_OP;
         }
@@ -118,7 +118,7 @@ public class SPCScanner {
     }
 }*/
 
-class tokenObject
+/*class tokenObject
 {
     String lexemes;
     int KEYWORD;
@@ -139,5 +139,5 @@ class tokenObject
     {
         return KEYWORD;
     }
+}*/
 
-}
