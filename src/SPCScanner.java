@@ -1,68 +1,44 @@
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-import java.util.regex.*;
-
-//The subset of Keywords involved in squareprog.scl
-enum keyWords //table of KEYWORDS for the scanner
-{
-    IMPORT(1,"input"),
-    FORWARD(2,"forward"),
-    DECLARATION(3,"declaration"),
-    VARIABLES(4,"variables"),
-    IDENTIFIERS(5,"identifiers"),
-    DEFINE(6, "define"),
-    CONSTANTS(7,"constants"),
-    STRUCTURES(8,"structures"),
-    OF(9,"of"),
-    TYPE(10,"type"),
-    BEGIN(11,"begin"),
-    RETURN(12,"return"),
-    TYPE(13,"type"),
-    PARAMETERS(14,"parameter"),
-    DISPLAY(15,"display"),
-    INPUT(16,"input"),
-    ENDFUN(17,"endfun"),
-    EXIT(18,"exit"),
-    DOUBLE(19,"double"),
-    STRING(20,"string"),
-    IS(21,"is"),
-    MULTIPLICATION_OP(22,"*"),
-    ASSIGNMENT_OP(23,"="),
-    DOUBLE_LIT(24,"^-?\\d+(\\.\\d+)?$");
-
-    private String lexemes;
-    private int KeywordNum;
-
-    private keyWords(int KeywordNum, String lexemes) {
-        this.KeywordNum = KeywordNum ;
-        this.lexemes = lexemes ;
-    }
-}
-
-
-
 public class SPCScanner {
     //inputs string
-    keyWords tokenKeyWord;
-    public tokenObject strInput(String firstToken) {
-            //basic regex filter to discern whether the token is numerical
-            if (firstToken.matches("^-?\\d+(\\.\\d+)?$")) {
-
-            }
-            //basic regex filter to discern whether the token has acceptation lexica rules for a variable or keyword
-            if (firstToken.matches("^[a-zA-Z_$][a-zA-Z_$0-9]*$")) {
-                wordAnalyzer(firstToken);
-            } else { // still working on a way to pass the comments through the lexical analyser but first and foremost I need to prevent the scanner from exploding if encountering a comment.
-                if (firstToken == "//") {
-                    return firstToken;
-                }
-                else {
-                    otherAnalyzer(firstToken);
-                }
-            }
-            return token;
+    keyWords[] tokenKeyWord = keyWords.values();
+    public keyWords strInput(String firstToken)
+    {
+        //basic regex filter to discern whether the token is numerical
+        if (firstToken.matches("^-?\\d+(\\.\\d+)?$"))
+        {
+            keyWords.DOUBLE_LIT.setLexemes(firstToken);
+            return keyWords.DOUBLE_LIT;
         }
+        //basic regex filter to discern whether the token has acceptation lexica rules for a variable or keyword
+        if (firstToken.matches("^[a-zA-Z_$][a-zA-Z_$0-9]*$")) {
+            if(firstToken.matches("^[a-z]*$"))
+            {
+                for (keyWords keyword : tokenKeyWord )
+                {
+                    if(keyword.getLexemes() == firstToken)
+                    {
+                        return keyword;
+                    }
+                }
+                keyWords.IDENTIFIERS.setLexemes(firstToken);
+                return keyWords.IDENTIFIERS;
+            }
+        }
+        if(firstToken == "*")
+        {
+            return keyWords.MULTIPLICATION_OP;
+        }
+        if(firstToken == "=")
+        {
+            return keyWords.ASSIGNMENT_OP;
+        }
+        else
+        {
+            keyWords.UNKNOWN_KEYWORD.setLexemes(firstToken);
+            System.out.println("Encountered an unknown KEYWORD");
+            return keyWords.UNKNOWN_KEYWORD;
+        }
+    }
     }
     /*public void wordAnalyzer(String numberString)
     {
