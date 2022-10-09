@@ -3,11 +3,10 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
-    List<keyWords> object = new ArrayList<>();
     public static void main(String[] args) {
-        SPCScanner scanner = new SPCScanner();
+        SPCScanner scanner = new SPCScanner();//instantiates a scanner
         List<keyWords> object = new ArrayList<>();
-        String source = "import \"scl.h\"\n" +
+        String source = "import \"scl.h\"\n" +//string source code for distpoints.scl
                 "\n" +
                 "implementations\n" +
                 "\n" +
@@ -34,19 +33,19 @@ public class Main {
                 "    display \"Distance between P1 and P2: \", dist\n" +
                 "    exit      \n" +
                 "endfun main";
-        StringTokenizer st = new StringTokenizer(source," ,^()\"", true);
-        while (st.hasMoreTokens()) {
-            String lexemes = st.nextToken("  ,()^\n\t\"");
+        StringTokenizer st = new StringTokenizer(source," ,^()\"", true);// tokenizes the string and sets which delimiters will be treated as input.
+        while (st.hasMoreTokens()) {//will iterate until the there are no more tokens
+            String lexemes = st.nextToken(" ,()^\n\t\"");//sets the next variable to be split by the listed delimiters
             if(!lexemes.matches("\\s+"))
             {
                 object.add(scanner.strInput(lexemes));
             }
         }
         for (String identifiers : scanner.symbolTable) {
-            System.out.print(identifiers + "  ");
+            System.out.print(identifiers + "  ");//Prints identifiers in the symbol table
         }
-
-        System.out.print(object);
+        System.out.println();
+        System.out.print(object);//Prints the returned keyword objects
 
     }
 }
